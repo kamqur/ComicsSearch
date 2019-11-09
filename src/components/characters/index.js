@@ -1,18 +1,33 @@
 import React from 'react';
 import axios from 'axios';
-import {CardGroup,Card} from 'react-bootstrap';
-//import Modal from '../Modal'
+import {CardGroup,Card,Modal,Button} from 'react-bootstrap';
+import CharacterDetail from './CharacterDetail';
 
 class ComicsList extends React.Component {
-
 
     constructor(props) {
       super(props)
       this.state = {
-          data:[]
+          data:[],
+          showModal:false
         
       }
+
+      this.handleHideModal = this.handleHideModal.bind(this);
+
+      this.handleShowModal = this.handleShowModal.bind(this);
     }
+
+
+    handleHideModal(){
+      this.setState({showModal: false})
+    }
+
+
+    handleShowModal(){
+        this.setState({showModal: true})
+    }
+
 
     componentDidMount(){
       axios.get('https://gateway.marvel.com/v1/public/characters?ts=1565922410&apikey=6a038473ffd6407750a2ea27115f7e7c&hash=1492df65a88ef98a1a279719fe509f72')
@@ -24,63 +39,30 @@ class ComicsList extends React.Component {
     }
 
 
+
+
     render() {
 
       const characterinfo = this.state.data.map((res) => 
       <Card>
-      <Card.Img variant="top" src={res.thumbnail.path}
-                 />
+      <Card.Img variant="top" src={res.thumbnail.path}/>
       <Card.Body>
-        <Card.Title>{res.name}</Card.Title>
+        <Card.Title onClick={this.handleShowModal}>{res.name}</Card.Title>
+           <CharacterDetail show={this.state.showModal}
+                             onHide={this.handleHideModal}/>
       </Card.Body>
     </Card>
       )
 
-
-
-      // function Modal(props) {
-      //   return (
-      //     <Modal
-      //       {...props}
-      //       size="lg"
-      //       aria-labelledby="contained-modal-title-vcenter"
-      //       centered
-      //     >
-      //       <Modal.Header closeButton>
-      //         <Modal.Title id="contained-modal-title-vcenter">
-      //           Modal heading
-      //         </Modal.Title>
-      //       </Modal.Header>
-            
-      //       <Modal.Body>
-      //         <h4>Centered Modal</h4>
-      //         <p>
-      //           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-      //           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-      //           consectetur ac, vestibulum at eros.
-      //         </p>
-      //       </Modal.Body>
-            
-            
-      //       <Modal.Footer>
-      //         <Button onClick={props.onHide}>Close</Button>
-      //       </Modal.Footer>
-      //     </Modal>
-      //   );
-      // }
-
-
-      // const [modalShow, setModalShow] = React.useState(false);
-
-
         return ( 
-
+         <div>
             <CardGroup>
               {characterinfo}
             </CardGroup>
-
+         </div>
         )
     }
+
 }
 
 
