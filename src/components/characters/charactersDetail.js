@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
-class CharactersDetail extends Component{
+class CharactersDetail extends Component {
   render() {
-    const { name, id, addToFavourite, removeToFavourite } = this.props;
+    const { name, id, addToFavourite,removeToFavourite} = this.props;
     return (
       <div> 
         <span>{name}</span>

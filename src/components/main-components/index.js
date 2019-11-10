@@ -1,11 +1,13 @@
 import React, { Fragment, Component } from 'react';
 import axios from 'axios';
 
-import Header from "../headers";
+import Header from "../header";
 import Footer from "../footer";
 import ComicsList from '../characters/index'
 import CharactersDetail from '../characters/charactersDetail';
-import { PageSize } from './../../utils/constants';
+import { PageSize } from '../../utils/constants';
+import {Favourite} from '../favourite';
+
 
 class MainComponent extends Component{
 
@@ -18,6 +20,8 @@ class MainComponent extends Component{
       size: PageSize,
       searchComicKey: "",
       favouriteCommics: [],
+      showModal:false
+
     }
 
     this.prev = this.prev.bind(this);
@@ -25,6 +29,8 @@ class MainComponent extends Component{
     this.searchingComic = this.searchingComic.bind(this);
     this.addToFavourite = this.addToFavourite.bind(this);
     this.removeToFavourite = this.removeToFavourite.bind(this);
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleHideModal = this.handleHideModal.bind(this);
     
   }
 
@@ -66,6 +72,9 @@ class MainComponent extends Component{
     return <ComicsList 
       commics={[...commics].slice(currentPage, currentPage + PageSize)}
       currentPage={currentPage}
+      showModal={this.state.showModal}
+      handleHideModal={this.handleHideModal}
+      handleShowModal={this.handleShowModal}
     />
   }
 
@@ -83,6 +92,17 @@ class MainComponent extends Component{
     }
   }
 
+  handleHideModal(){
+    this.setState({showModal: false})
+  }
+
+
+  handleShowModal(){
+      this.setState({showModal: true})
+      console.log(this.state.showModal);
+  }
+
+
   getSearchComic() {
     const { commics, searchComicKey } = this.state;
     const commic = commics.find( c => c.name === searchComicKey );
@@ -98,10 +118,13 @@ class MainComponent extends Component{
     }
   }
 
+
+
   render() {
     const { commics, searchComicKey } = this.state;
-    console.log(this.state);
+    <Favourite favouriteCommics={this.state.favouriteCommics} />
     return (
+      <div>
       <Fragment>
         <Header
           search={this.searchingComic}
@@ -117,6 +140,8 @@ class MainComponent extends Component{
         </Fragment>
       ) : this.getSearchComic()}
       </Fragment>
+
+     </div>
     )
   }
 };
