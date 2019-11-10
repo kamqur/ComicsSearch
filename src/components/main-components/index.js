@@ -6,7 +6,7 @@ import Footer from "../footer";
 import ComicsList from '../characters/index'
 import CharactersDetail from '../characters/charactersDetail';
 import { PageSize } from '../../utils/constants';
-import {Favourite} from '../favourite';
+import {Favourite} from '../favourite/index'; 
 
 
 class MainComponent extends Component{
@@ -122,7 +122,7 @@ class MainComponent extends Component{
 
   render() {
     const { commics, searchComicKey } = this.state;
-    <Favourite favouriteCommics={this.state.favouriteCommics} />
+//    <Favourite favouriteCommics={this.state.favouriteCommics} />
     return (
       <div>
       <Fragment>
