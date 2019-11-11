@@ -3,13 +3,18 @@ import { Button} from "react-bootstrap";
 
 class CharactersDetail extends Component {
   render() {
-    const { name, id, addToFavourite,removeToFavourite} = this.props;
+    const { name, id, addToFavourite, removeToFavourite,resourceURI,description} = this.props;
+    console.log(this.props);
     return (
       <div> 
-        <span>{name}</span>
-        <h3> Add & Remove Favourite </h3>
-          <Button variant="danger" onClick={() => removeToFavourite(id)}> Remove </Button>
-          <Button variant="success" onClick={() => addToFavourite(id)}> Add </Button> 
+        <h3>{name}</h3>
+        <br />
+          <h4>Description</h4>
+          <p>{description}</p>
+        <a href={resourceURI}>ResourceURI</a>
+        <br />
+          <Button variant="danger" onClick={() => removeToFavourite({id, name})}> Remove From Favourite </Button>
+          <Button variant="success" onClick={() => addToFavourite({id, name})}> Add To Favourite</Button> 
       </div>
     )
   }

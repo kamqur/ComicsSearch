@@ -1,28 +1,31 @@
 
 import React, { Component } from 'react';
-import { Button,Modal} from "react-bootstrap";
+import { Modal} from "react-bootstrap";
+import CharactersDetail from "../characters/charactersDetail";
 
 class CharacterInfo extends Component {
     render() {
-      const {showModal,handleHideModal,addToFavourite,name} = this.props;
+      const {showModal,handleHideModal} = this.props;
       return (
         <div> 
           <Modal show={showModal}
-           onHide={handleHideModal}
-           size="lg"
-           aria-labelledby="contained-modal-title-vcenter"
-           centered
+            onHide={handleHideModal}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
           > 
           <Modal.Header> </Modal.Header>
           <Modal.Body>
             <div className="container">
-              <h3>{name}</h3>
+              <CharactersDetail 
+                {...this.props}
+              />
             </div>
           </Modal.Body>
           <Modal.Footer>
             {/* <Button variant="success" onClick={() => addToFavourite(id)}> Add </Button>  */}
           </Modal.Footer>
-         </Modal>
+        </Modal>
         </div>
       )
     }
